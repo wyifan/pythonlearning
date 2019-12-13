@@ -1,18 +1,20 @@
 import pymysql
 
-db = pymysql.connect("localhost","root","173170329","books")
+db = pymysql.connect("localhost","root","123456","books")
 
 cursor = db.cursor()
 
 sql = "select * from books where bookid='f72d1ef0-1b24-11ea-bb88-70c94ee665be'"
-sqlbase = "INSERT INTO `BOOKS`(`BookId`, `BookName`, `BookPath`, `Md5`) VALUES (%s,%s,%s,%s)"
-data =(('c2906c1c-1da7-11ea-adb9-72c94ee665bd','HTTP2 in Action.pdf','E:\/test\/HTTP2 in Action.pdf','268f6fc8938d61e515dcb4bf15ed8352'),('c2aa98f1-1da7-11ea-b5b5-72c94ee665bd','the road less traveled.pdf','E:\/test\/the road less traveled.pdf','989beea96803c86eb47f80c325f278a8'))
+sqlbase = "INSERT INTO `books`(`BookId`, `BookName`, `BookPath`, `Md5`) VALUES (%s,%s,%s,%s)"
+data =[('c2906c1c-1da7-11ea-adb9-72c94ee665bd','HTTP2 in Action.pdf','EAction.pdf','268f6fc8938d61e515dcb4bf15ed8352'),('c2aa98f1-1da7-11ea-b5b5-72c94ee665bd','the road less traveled.pdf','Ess traveled.pdf','989beea96803c86eb47f80c325f278a8')]
+insql = "INSERT INTO `books`(`BookId`, `BookName`, `BookPath`, `Md5`, `CreateDate`) VALUES ('3439bce4-1d9e-11ea-bf4e-72c94ee665bd','Android.4.0.pdf','eee.pdf','0a4de4aab827bb10e4a803bc509e9d02',CURRENT_TIMESTAMP())"
 
 def writeToDb(sql,paras):
     try:
-        conn = pymysql.connect("localhost","root","173170329","books")
+        conn = pymysql.connect("localhost","root","123456","books")
         cursor = conn.cursor()
         cursor.executemany(sql,paras)
+        # cursor.execute(insql)
         conn.commit()
         conn.close()
     except:
