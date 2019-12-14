@@ -18,7 +18,10 @@ sqlbase = "INSERT INTO `books`(`BookId`, `BookName`, `BookPath`, `Md5`) VALUES (
 
 def writeToDb(sql,paras):
     try:
-        conn = pymysql.connect("localhost","root","123456","books")
+        conn = pymysql.connect(host="localhost",user="root",password="123456",database="books",charset="utf8mb4")
+        #error promed!
+        # conn = pymysql.connect("localhost","root","123456","books","utf8mb4")
+
         cursor = conn.cursor()
         cursor.executemany(sql,paras)
         conn.commit()
@@ -83,11 +86,11 @@ def formatPar(paras):
 
 if __name__=='__main__':
     print(datetime.datetime.now())
-    fileitems = findFiles("../AJAX",[])
+    fileitems = findFiles("/Users/yifan/Books",[])
     print(datetime.datetime.now())    
     sqlcontent = ""
     sqlpath = "../sql.txt"
-    exesql = ""
+    # exesql = ""
     sqlparas=[]
     for fi in fileitems:
         tpfn = os.path.split(fi)[1]
@@ -96,7 +99,8 @@ if __name__=='__main__':
             text = formatSql(re[1],re[0],re[2])
             #writeToDb(text)
             sqlcontent+= "\n" + text
-            exesql += text
+            # exesql += text
+            # error promed without str()
             # id = str(uuid.uuid3(uuid.NAMESPACE_DNS,"wsf"))
             id = str(uuid.uuid4())
             # id = str(uuid.uuid1())
@@ -115,5 +119,5 @@ if __name__=='__main__':
     writeToDb(sqlbase,sqlparas)
     #write to the file
     writeToTest(sqlpath, sqlcontent)
-    writeToTest("../t.txt",exesql)
+    # writeToTest("../t.txt",exesql)
  
