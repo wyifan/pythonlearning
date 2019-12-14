@@ -18,9 +18,9 @@ sqlbase = "INSERT INTO `books`(`BookId`, `BookName`, `BookPath`, `Md5`) VALUES (
 
 def writeToDb(sql,paras):
     try:
-        conn = pymysql.connect(host="localhost",user="root",password="123456",database="books",charset="utf8mb4")
+        conn = pymysql.connect(host="localhost",port=3306,user="root",password="123456",database="books",charset="utf8mb4")
         #error promed!
-        # conn = pymysql.connect("localhost","root","123456","books","utf8mb4")
+        #conn = pymysql.connect("localhost","root","123456","books",3306,"utf8mb4")
 
         cursor = conn.cursor()
         cursor.executemany(sql,paras)
